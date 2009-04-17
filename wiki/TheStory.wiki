@@ -1,4 +1,4 @@
-#summary All about Review Scraper...
+#summary All about Review Scraper
 
 Review Scraper was written as a personal project so I could scrape reviews for my apps on a global scale.
 
