@@ -17,6 +17,4 @@
 	NSMutableArray *resultArray;
 }
 
-+ (NSArray *)getSearchHintsFromXMLData:(NSData *)xmlData;
-
 @end
