@@ -20,6 +20,7 @@
 	NSString *helpPath = [[NSBundle mainBundle] pathForResource:@"index" ofType:@"html"];
 	NSURL *helpURL = [NSURL fileURLWithPath:helpPath];
 	[self.webView loadRequest:[NSURLRequest requestWithURL:helpURL]];
+	self.webView.backgroundColor = [UIColor colorWithRed:0.8f green:0.8f blue:0.8f alpha:1.0f];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -65,7 +66,7 @@
 						
 			return NO;
 		}
-		else if([[[request URL] absoluteString] hasPrefix:@"mailto"])
+		else
 		{			
 			[[UIApplication sharedApplication] openURL:[request URL]];
 			
