@@ -85,18 +85,6 @@
 }
 
 
-+ (NSArray *)getSearchHintsFromXMLData:(NSData *)xmlData
-{	
-	NSXMLParser *xmlParse = [[NSXMLParser alloc] initWithData:xmlData];
-	[xmlParse setDelegate: self];
-	[xmlParse parse];
-	
-	[xmlParse release];
-	
-	return resultArray;
-}
-
-
 - (void)dealloc
 {
 	[hint release];
