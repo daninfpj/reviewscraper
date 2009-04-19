@@ -629,6 +629,7 @@
 				1D60588D0D05DD3D006BFB54 /* Resources */,
 				1D60588E0D05DD3D006BFB54 /* Sources */,
 				1D60588F0D05DD3D006BFB54 /* Frameworks */,
+				E67CE5D00F9B5E180094410C /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -760,6 +761,22 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		E67CE5D00F9B5E180094410C /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "REV=`svnversion -n ${PROJECT_DIR} | sed -e 's/^[^:]*://;s/[A-Za-z]//'`\nsed -e \"s/##revision##/$REV/\" ${PROJECT_DIR}/index.html > ${BUILT_PRODUCTS_DIR}/${WRAPPER_NAME}/index.html";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		1D60588E0D05DD3D006BFB54 /* Sources */ = {
