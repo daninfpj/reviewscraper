@@ -1,4 +1,5 @@
 #summary Contributing to Review Scraper
+#labels Featured
 
 The code as is can probably be done a lot better, a lot tidier and use easier methods.
 
