@@ -1,4 +1,5 @@
 #summary Show your appreciation
+#labels Featured
 
 You like Review Scraper? Great!
 
