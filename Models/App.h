@@ -14,23 +14,23 @@
 	NSString *name;
 	NSString *code;
 	NSString *artist;
-	NSData *image;
-	BOOL needsShine;
+	UIImage *image;
 	BOOL isDownloading;
 	BOOL hasDownloadedReviews;
 	id downloadDelegate;
+	int sortIndex;
 }
 
 @property (retain) NSMutableDictionary *countries;
 @property (retain) NSString *name;
 @property (retain) NSString *code;
 @property (retain) NSString *artist;
-@property (retain) NSData *image;
-@property (assign) BOOL needsShine;
+@property (retain) UIImage *image;
 @property (assign) BOOL isDownloading;
 @property (assign) BOOL hasDownloadedReviews;
+@property (assign) int sortIndex;
 
-- (id)initWithName:(NSString *)appName appCode:(NSString *)appCode appArtist:(NSString *)appArtist appImage:(NSData *)appImage appShine:(BOOL)appShine;
+- (id)initWithName:(NSString *)appName appCode:(NSString *)appCode appArtist:(NSString *)appArtist;
 - (NSString *)filename;
 - (void)downloadReviews:(id)delegate;
 - (void)cancelDownload;

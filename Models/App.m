@@ -24,11 +24,11 @@
 @synthesize code;
 @synthesize artist;
 @synthesize image;
-@synthesize needsShine;
 @synthesize isDownloading;
 @synthesize hasDownloadedReviews;
+@synthesize sortIndex;
 
-- (id)initWithName:(NSString *)appName appCode:(NSString *)appCode appArtist:(NSString *)appArtist appImage:(NSData *)appImage appShine:(BOOL)appShine
+- (id)initWithName:(NSString *)appName appCode:(NSString *)appCode appArtist:(NSString *)appArtist
 {
 	self = [super init];
 		
@@ -36,10 +36,10 @@
 	self.name = appName;
 	self.code = appCode;
 	self.artist = appArtist;
-	self.image = appImage;
-	self.needsShine = appShine;
+	self.image = nil;
 	self.isDownloading = NO;
 	self.hasDownloadedReviews = NO;
+	self.sortIndex = 0;
 	
 	return self;
 }
@@ -53,10 +53,10 @@
 	self.name = [coder decodeObjectForKey:@"name"];
 	self.code = [coder decodeObjectForKey:@"code"];
 	self.artist = [coder decodeObjectForKey:@"artist"];
-	self.image = [coder decodeObjectForKey:@"image"];
-	self.needsShine = [coder decodeBoolForKey:@"needsshine"];
-	self.hasDownloadedReviews = [coder decodeBoolForKey:@"downloadedreviews"];
+	self.image = [UIImage imageWithData:[coder decodeObjectForKey:@"image"]];
 	self.isDownloading = NO;
+	self.hasDownloadedReviews = [coder decodeBoolForKey:@"downloadedreviews"];
+	self.sortIndex = [coder decodeIntForKey:@"sortindex"];
 	
 	return self;
 }
@@ -68,9 +68,9 @@
 	[coder encodeObject:self.name forKey:@"name"];
 	[coder encodeObject:self.code forKey:@"code"];
 	[coder encodeObject:self.artist forKey:@"artist"];
-	[coder encodeObject:self.image forKey:@"image"];
-	[coder encodeBool:self.needsShine forKey:@"needsshine"];
+	[coder encodeObject:UIImagePNGRepresentation(self.image) forKey:@"image"];
 	[coder encodeBool:self.hasDownloadedReviews forKey:@"downloadedreviews"];
+	[coder encodeInt:self.sortIndex forKey:@"sortindex"];
 }
 
 
@@ -199,7 +199,7 @@
 
 
 - (NSInteger)averageRating
-{
+{	
 	float rating = 0.0f;
 	
 	if([self.countries count] > 0)

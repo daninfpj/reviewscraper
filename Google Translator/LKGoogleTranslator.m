@@ -71,7 +71,6 @@
 	else
 	{
 		NSString *contents = [[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] autorelease];
-		//NSLog(contents);
 		
 		NSNumber *responseStatus = [[contents JSONValue] objectForKey:@"responseStatus"];
 		

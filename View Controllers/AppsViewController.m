@@ -144,7 +144,7 @@
 	}
 	else
 	{
-		NSArray *apps = [self.rootViewController.apps allValues];
+		NSArray *apps = self.rootViewController.apps;
 		countryViewController.title = [[apps objectAtIndex:row] name];
 		countryViewController.app = [apps objectAtIndex:row];
 		[self.navigationController pushViewController:countryViewController animated:YES];
@@ -178,11 +178,48 @@
 {
     if(editingStyle == UITableViewCellEditingStyleDelete)
 	{
-        NSArray *apps = [self.rootViewController.apps allValues];
+        NSArray *apps = self.rootViewController.apps;
 		[self.rootViewController deleteApp:[apps objectAtIndex:indexPath.row-1]];
 		[tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationRight];
     }
 }
+
+
+- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
+{
+	if(indexPath.row == 0)
+	{
+		return NO;
+	}
+	
+	return YES;
+}
+
+
+- (NSIndexPath *)tableView:(UITableView *)tableView targetIndexPathForMoveFromRowAtIndexPath:(NSIndexPath *)sourceIndexPath toProposedIndexPath:(NSIndexPath *)proposedDestinationIndexPath
+{	
+	int row = proposedDestinationIndexPath.row;
+	
+	if(row < 1)
+	{
+		row = 1;
+	}
+	
+	return [NSIndexPath indexPathForRow:row inSection:0];
+}		
+
+
+- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath toIndexPath:(NSIndexPath *)destinationIndexPath
+{	
+	App *appToMove = [self.rootViewController.apps objectAtIndex:sourceIndexPath.row-1];
+	[appToMove retain];
+	
+	[self.rootViewController.apps removeObjectAtIndex:sourceIndexPath.row-1];
+	[self.rootViewController.apps insertObject:appToMove atIndex:destinationIndexPath.row-1];
+	
+	[appToMove release];
+}
+
 
 - (void)setEditing:(BOOL)editing animated:(BOOL)animated
 {	
@@ -213,19 +250,21 @@
 #pragma mark - Private Methods
 
 - (AppCell *)appCellForRow:(UITableView *)tableView row:(NSInteger)row
-{
-	AppCell *cell = [[[AppCell alloc] initWithFrame:CGRectZero] autorelease];
+{    
+    AppCell *cell = (AppCell *)[tableView dequeueReusableCellWithIdentifier:@"AppCell"];
 	
-	NSArray *apps = [self.rootViewController.apps allValues];
+    if(cell == nil)
+	{
+        cell = [[[AppCell alloc] initWithFrame:CGRectZero reuseIdentifier:@"AppCell"] autorelease];
+    }
+		
+	NSArray *apps = self.rootViewController.apps;
 	
 	App *app = [apps objectAtIndex:row];
 	
 	cell.titleView.text = app.name;
 	cell.artistView.text = app.artist;
-	
-	UIImage *anImage = [UIImage imageWithData:app.image];
-	
-	cell.image = [anImage imageWithRoundedCorners:app.needsShine];
+	cell.image = app.image;
 	
 	cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 	

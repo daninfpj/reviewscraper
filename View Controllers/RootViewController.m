@@ -14,6 +14,26 @@
 #import "App.h"
 #import "ShouldRotateView.h"
 
+NSInteger intSort(id obj1, id obj2, void *context)
+{
+    App *app1 = (App *)obj1;
+	App *app2 = (App *)obj2;
+	
+	int v1 = app1.sortIndex;
+    int v2 = app2.sortIndex;
+	
+    if(v1 < v2)
+	{
+        return NSOrderedAscending;
+	}
+    else if (v1 > v2)
+	{
+        return NSOrderedDescending;
+	}
+	
+	return NSOrderedSame;
+}
+
 @implementation RootViewController
 
 @synthesize apps;
@@ -22,7 +42,7 @@
 {
 	[super initWithCoder:coder];
 	
-	self.apps = [NSMutableDictionary dictionary];
+	NSMutableArray *tempArray = [NSMutableArray array];
 	
 	NSArray *filenames = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:[self docPath] error:NULL];
 	
@@ -37,10 +57,12 @@
 		
 		if(loadedApp != nil)
 		{
-			[self.apps setObject:loadedApp forKey:[loadedApp name]];
+			[tempArray addObject:loadedApp];
 		}
 	}
 	
+	self.apps = [NSMutableArray arrayWithArray:[tempArray sortedArrayUsingFunction:intSort context:nil]];
+		
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(saveApps) name:UIApplicationWillTerminateNotification object:nil];
 	
 	return self;
@@ -187,11 +209,14 @@
 
 - (void)saveApps
 {	
-	for(App *app in [self.apps allValues])
+	int iteration = 0;
+	
+	for(App *app in self.apps)
 	{
+		app.sortIndex = iteration;
 		NSString *fullPath = [[self docPath] stringByAppendingPathComponent:[app filename]];
-		
 		[NSKeyedArchiver archiveRootObject:app toFile:fullPath];
+		iteration++;
 	}
 }
 
@@ -201,12 +226,12 @@
 	NSString *fullPath = [[self docPath] stringByAppendingPathComponent:[appToDelete filename]];
 	[[NSFileManager defaultManager] removeItemAtPath:fullPath error:NULL];
 	
-	[self.apps removeObjectForKey:appToDelete.name];
+	[self.apps removeObject:appToDelete];
 }
 
 - (void)addApp:(App *)appToAdd
 {
-	[self.apps setObject:appToAdd forKey:[appToAdd name]];
+	[self.apps addObject:appToAdd];
 }
 
 

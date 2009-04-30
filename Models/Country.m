@@ -63,7 +63,7 @@
 #pragma mark - Instance Methods
 
 - (NSInteger)averageRating
-{
+{	
 	float rating = 0.0f;
 	
 	for(Review *review in self.reviews)
