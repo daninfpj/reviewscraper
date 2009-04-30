@@ -16,10 +16,10 @@
 	IBOutlet AppsViewController *appsViewController;
 	IBOutlet UITableView *tableView;
 	
-	NSMutableDictionary *apps;
+	NSMutableArray *apps;
 }
 
-@property (nonatomic, retain) NSMutableDictionary *apps;
+@property (nonatomic, retain) NSMutableArray *apps;
 
 - (NSString *)docPath;
 - (void)saveApps;

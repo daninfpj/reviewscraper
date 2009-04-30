@@ -89,9 +89,7 @@
 		
 		[scanner scanString:@"</GotoURL>" intoString:NULL];
 		[scanner scanUpToString:@"</SetFontStyle>" intoString:&tempString];
-		
-		//NSLog(@"tempString %@", tempString);
-		
+				
 		if([tempString length] > 0)
 		{
 			[xml appendString:@"<versionnum>"];

@@ -18,6 +18,7 @@
 #import "ProgressActivityView.h"
 #import "RemoteAppDidYouMeanCell.h"
 #import "ShouldRotateView.h"
+#import "UIImage+Mask.h"
 
 @interface SearchViewController (Private)
 - (void)loadContentForCells:(NSArray *)cells;
@@ -351,7 +352,10 @@
 			
 			NSNumber *needsShine = [dict objectForKey:@"needs-shine"];
 				
-			App *newApp = [[App alloc] initWithName:[aResult objectForKey:@"title"] appCode:[NSString stringWithFormat: @"%d", appID] appArtist:[aResult objectForKey:@"artist-name"] appImage:[NSData dataWithContentsOfURL:[NSURL URLWithString:[dict objectForKey:@"url"]]] appShine:[needsShine boolValue]];
+			App *newApp = [[App alloc] initWithName:[aResult objectForKey:@"title"] appCode:[NSString stringWithFormat: @"%d", appID] appArtist:[aResult objectForKey:@"artist-name"]];
+			UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[dict objectForKey:@"url"]]]];
+			newApp.image = [image imageWithRoundedCorners:[needsShine boolValue]];
+			newApp.sortIndex = [self.appsViewController.rootViewController.apps count];
 			[self.appsViewController.rootViewController addApp:newApp];
 			[newApp release];
 				
@@ -448,7 +452,6 @@
 	if(progressActivityView)
 	{
 		[progressActivityView removeFromSuperview];
-		//[progressActivityView release];
 	}
 	
 	[searchDownloader cancel];
