@@ -21,7 +21,7 @@
 	NSString *urlString = [NSString stringWithFormat:@"http://ax.phobos.apple.com.edgesuite.net/WebObjects/MZStore.woa/wa/viewContentsUserReviews?id=%@&pageNumber=%d&sortOrdering=4&type=Purple+Software&onlyLatestVersion=false", appCode, pageNumber];
 	
 	NSURL *url = [NSURL URLWithString:urlString];
-	NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
+	NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url cachePolicy:NSURLRequestReloadIgnoringCacheData timeoutInterval:60.0];
 	[request addValue:[NSString stringWithFormat:@"%@-1", itunesCode] forHTTPHeaderField:@"X-Apple-Store-Front"];
 	[request addValue:@"iTunes-iPhone/2.2 (2)" forHTTPHeaderField:@"User-Agent"];
 	

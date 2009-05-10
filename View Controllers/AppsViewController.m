@@ -251,12 +251,7 @@
 
 - (AppCell *)appCellForRow:(UITableView *)tableView row:(NSInteger)row
 {    
-    AppCell *cell = (AppCell *)[tableView dequeueReusableCellWithIdentifier:@"AppCell"];
-	
-    if(cell == nil)
-	{
-        cell = [[[AppCell alloc] initWithFrame:CGRectZero reuseIdentifier:@"AppCell"] autorelease];
-    }
+    AppCell *cell = [[[AppCell alloc] initWithFrame:CGRectZero reuseIdentifier:@"AppCell"] autorelease];
 		
 	NSArray *apps = self.rootViewController.apps;
 	
