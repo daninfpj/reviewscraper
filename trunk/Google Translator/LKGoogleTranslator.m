@@ -58,7 +58,7 @@
 	NSString *encodedString = [sourceText stringByAddingPercentEscapesUsingEncoding: NSUTF8StringEncoding];
 	[urlString appendString:[self urlencode:encodedString]];
 	NSURL* url = [NSURL URLWithString: urlString];
-	NSURLRequest* request = [NSURLRequest requestWithURL:url cachePolicy:NSURLRequestReloadIgnoringCacheData timeoutInterval:60.0];
+	NSURLRequest* request = [NSURLRequest requestWithURL:url cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:60.0];
 	NSHTTPURLResponse* response; NSError* error;
 	NSData* data = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error: &error];
 	

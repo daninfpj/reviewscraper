@@ -156,23 +156,27 @@
 			
 			NSArray *reviewArray = [DownloadReviews downloadWithCountry:[[CountryManager sharedManager] iTunesCodeForKey:[countryArray objectAtIndex:i]] countryName:[countryArray objectAtIndex:i] appCode:self.code pageNumber:currentPage];
 			
-			if([reviewArray count] > 0)
-			{								
-				[tempReviewArray addObjectsFromArray:reviewArray];
-			}
-			else
+			if([reviewArray count] == 0 && [tempReviewArray count] == 0)
 			{
 				[loopPool release];
 				break;
 			}
 			
-			if([reviewArray count] < 25 && self.isDownloading)
+			if([reviewArray count] > 0)
+			{								
+				[tempReviewArray addObjectsFromArray:reviewArray];
+			}
+			
+			if([reviewArray count] < 25 && self.isDownloading && [tempReviewArray count] > 0)
 			{
 				Country *country = [self countryNamed:[countryArray objectAtIndex:i]];
 				country.translated = NO;
 				country.showTranslated = NO;
 				[country.reviews removeAllObjects];
 				[country.reviews addObjectsFromArray:tempReviewArray];
+				[tempReviewArray removeAllObjects];
+				[loopPool release];
+				break;
 			}
 			
 			currentPage++;
