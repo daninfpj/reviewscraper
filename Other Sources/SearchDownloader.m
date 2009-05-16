@@ -52,7 +52,7 @@
 	
 	NSString *iTunesCode = [NSString stringWithFormat:@"%@,2", [[CountryManager sharedManager] iTunesCodeForKey:[[NSUserDefaults standardUserDefaults] objectForKey:@"LocaleName"]]];
 		
-	request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:url] cachePolicy:NSURLRequestReloadIgnoringCacheData timeoutInterval:60.0];
+	request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:url] cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:60.0];
 	[request addValue:iTunesCode forHTTPHeaderField:@"X-Apple-Store-Front"];
 	[request addValue:@"iTunes-iPhone/2.2 (2)" forHTTPHeaderField:@"User-Agent"];
 	
