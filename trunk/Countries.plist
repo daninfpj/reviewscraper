@@ -22,6 +22,15 @@
 			<key>GoogleCode</key>
 			<string>en</string>
 		</dict>
+		<key>at</key>
+		<dict>
+		<key>Name</key>
+		<string>Austria</string>
+		<key>iTunesCode</key>
+		<integer>143445</integer>
+		<key>GoogleCode</key>
+		<string>de</string>
+		</dict>
 		<key>be</key>
 		<dict>
 			<key>Name</key>
