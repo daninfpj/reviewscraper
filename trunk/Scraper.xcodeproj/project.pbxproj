@@ -1289,8 +1289,6 @@
 				INFOPLIST_FILE = "/Users/davidperry/iPhone/Projects/reviewscraper/Cydia Info.plist";
 				LIBRARY_SEARCH_PATHS = "";
 				PRODUCT_NAME = Scraper;
-				PROVISIONING_PROFILE_ALLOWED = NO;
-				PROVISIONING_PROFILE_REQUIRED = NO;
 			};
 			name = Debug;
 		};
