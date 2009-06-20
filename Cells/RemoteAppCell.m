@@ -100,6 +100,7 @@
 	if(!data)
 	{
 		data = [NSData dataWithContentsOfURL:[NSURL URLWithString:self.url]];
+		[[ImageCache sharedCache] addImageDataToCache:data forURL:[NSURL URLWithString:self.url]];
 	}
 	
 	UIImage *image = [UIImage imageWithData:data];
@@ -111,7 +112,7 @@
 
 - (void)fetchImage
 {	
-	[NSThread detachNewThreadSelector: @selector(fetchImageThreaded) toTarget:self withObject:nil];
+	[NSThread detachNewThreadSelector:@selector(fetchImageThreaded) toTarget:self withObject:nil];
 }
 
 @end
